@@ -1,0 +1,19 @@
+{% extends 'accounts/base.html' %}
+{% block title %}控制台{% endblock %}
+
+{% block content %}
+<section class="card card--compact">
+    <div class="card__header">
+        <h1>您好，{{ user.get_username }}</h1>
+        <p>您已通过二次验证登录。</p>
+    </div>
+    <div class="card__body">
+        <p><strong>当前绑定密钥：</strong> {{ totp_secret }}</p>
+        <p>如需重新绑定谷歌验证器，请前往 <a href="{% url 'accounts:setup' %}">安全设置</a> 页面。</p>
+    </div>
+    <footer class="card__footer card__footer--split">
+        <a class="btn-secondary" href="{% url 'accounts:setup' %}">安全设置</a>
+        <a class="btn-link" href="{% url 'accounts:logout' %}">退出登录</a>
+    </footer>
+</section>
+{% endblock %}
