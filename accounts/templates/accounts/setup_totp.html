@@ -1,0 +1,32 @@
+{% extends 'accounts/base.html' %}
+{% block title %}安全设置{% endblock %}
+
+{% block content %}
+<section class="card">
+    <div class="card__header">
+        <h1>绑定谷歌验证器</h1>
+        <p>使用谷歌验证器扫描二维码或手动输入密钥完成绑定。</p>
+    </div>
+    <div class="card__body">
+        <ol class="instructions">
+            <li>在手机上安装 <strong>Google Authenticator</strong> 或其他兼容 TOTP 的应用。</li>
+            <li>新建账号并选择“扫描二维码”或“手动输入设置”。</li>
+            <li>扫描如下二维码或输入密钥即可绑定。</li>
+        </ol>
+        <div class="otp-panel">
+            <div class="otp-panel__secret">
+                <span class="label">手动输入密钥</span>
+                <code>{{ metadata.secret }}</code>
+            </div>
+            <div class="otp-panel__qr">
+                <span class="label">二维码</span>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ provisioning_uri|urlencode }}" alt="二维码">
+            </div>
+        </div>
+    </div>
+    <footer class="card__footer card__footer--split">
+        <a class="btn-secondary" href="{% url 'accounts:dashboard' %}">返回控制台</a>
+        <a class="btn-link" href="{% url 'accounts:logout' %}">退出登录</a>
+    </footer>
+</section>
+{% endblock %}
